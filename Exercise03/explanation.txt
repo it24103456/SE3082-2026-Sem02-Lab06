@@ -1,0 +1,11 @@
+how the pragma omp master command works in this program.
+
+#pragma omp master means ONLY the master thread (thread 0) executes the block.
+all other threads skip the master block and continue.
+
+In this program:
+all threads print "thread # ..."
+only thread 0 prints "Inside Master ..." and "Exiting Master"
+all threads print "Hi again ..."
+
+important difference: master has nO implicit barrier at the end, so other threads do not have to wait for the master thread to finish that block (they can print "Hi again" before master finished).
