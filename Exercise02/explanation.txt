@@ -1,0 +1,13 @@
+how the pragma omp single command works in this program.
+#pragma omp single means only one thread (any one thread) executes the block inside it. The other threads skip that block.
+
+in this program:
+
+all threads prints thread # ...
+
+only one thread prints:
+Inside Single # ...
+Exiting Single
+
+after the single block, all threads prints:
+Hi again from thread # ...
