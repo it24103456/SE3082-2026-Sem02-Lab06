@@ -1,8 +1,8 @@
-how threads are generated for #pragma omp parallel for
-
+1. how threads are generated for #pragma omp parallel for
 When the program reaches "#pragma omp parallel for", openMP creates a team of threads (size comes from OMP_NUM_THREADS or defaults). then it splits only the outer loop iterations (the r loop) among the threads.
+so each thread gets some r values (example with 2 threads: one thread may get r=1..3, the other r=4..5). for every r value a thread owns, that same thread runs the entire inner loop k=1..10 by itself. at the end of the parallel for, threads synchronize and the team ends.
 
-so each thread gets some r values (example with 2 threads: one thread may get r=1..3, the other r=4..5).
-for every r value a thread owns, that same thread runs the entire inner loop k=1..10 by itself.
 
-at the end of the parallel for, threads synchronize and the team ends.
+2. how threads are generated with collapse(2))
+With "collapse(2)", openMP combines the two loops (r and k) into ONE loop with 5*10 = 50 total iterations. then it distributes those 50 (r,k) combinations across the threads.
+so threads are no longer assigned whole r rows; they get chunks of (r,k) pairs. this usually gives better load balancing because the work is split across more, smaller iterations.
