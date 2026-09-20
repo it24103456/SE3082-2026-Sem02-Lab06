@@ -1,1 +1,2 @@
-
+how the pragma omp barrier command works in this program.
+#pragma omp barrier makes all threads stop at that line and wait until every thread reaches it. in this program it guarantees no thread prints the lines after the barrier (Outside Barrier.., Hi again....) until all threads have printed the first line (thread....).
